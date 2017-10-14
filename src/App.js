@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import mapboxgl from 'mapbox-gl';
-import { chapterPoints, chapterContents } from './utils/chapter.js';
+import { chapterPoints, chapterContents, chapterImage } from './utils/chapter.js';
 import { tripRoute } from './utils/tripRoute';
 import _ from 'lodash';
 
 import './App.css';
 import ChapterWrapper from './chapter/ChapterWrapper';
+const ChapterWrapperType = ['left', 'long', 'right', 'left', 'right', 'long', 'left'];
 
 class App extends Component {
   constructor(props) {
@@ -54,8 +55,10 @@ class App extends Component {
     if (chapterName === this.state.activeChapterName)
       return;
     this.state.map.flyTo(chapterPoints[chapterName]);
-    document.getElementById(chapterName).setAttribute('class', 'active');
-    document.getElementById(this.state.activeChapterName).setAttribute('class', '');
+    // document.getElementById(chapterName).setAttribute('class', 'active');
+    document.getElementById(chapterName).classList.add('active');
+    // document.getElementById(this.state.activeChapterName).setAttribute('class', '');
+    document.getElementById(this.state.activeChapterName).classList.remove('active');
 
     this.setState({
       activeChapterName: chapterName
@@ -76,6 +79,7 @@ class App extends Component {
               <ChapterWrapper
                 id={id}
                 key={id}
+                img={chapterImage[id]}
                 chapter={chapter} />
             )
           }
