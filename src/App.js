@@ -47,27 +47,39 @@ class App extends Component {
         .setLngLat(marker.center)
         .addTo(map);
     })
+    // line animation
+    var speedFactor = 30; // number of frames per longitude degree
+    var animation; // to store and cancel the animation
+    var startTime = 0;
+    var progress = 0; // progress = timestamp - startTime
+    var resetTime = false; // indicator of whether time reset is needed for the animation
+    var geojson = {
+        "type": "FeatureCollection",
+        "features": [{
+            "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [-0.15591514, 51.51830379]
+                ]
+            }
+        }]
+    };
+    var coorArray = [
+      [-0.154085, 51.514193],
+      [-0.113571, 51.518259],
+      [-0.106079, 51.517385],
+      [-0.090549, 51.513597],
+      [-0.07571203, 51.51424049]
+    ]
+    var coorIndex = 0;
     map.on('load', function () {
       map.addLayer({
-          "id": "route",
-          "type": "line",
-          "source": {
-              "type": "geojson",
-              "data": {
-                  "type": "Feature",
-                  "properties": {},
-                  "geometry": {
-                      "type": "LineString",
-                      "coordinates": [
-                          [-0.15591514, 51.51830379],
-                          [-0.154085, 51.514193],
-                          [-0.113571, 51.518259],
-                          [-0.106079, 51.517385],
-                          [-0.090549, 51.513597],
-                          [-0.07571203, 51.51424049]
-                      ]
-                  }
-              }
+          'id': 'line-animation',
+          'type': 'line',
+          'source': {
+              'type': 'geojson',
+              'data': geojson
           },
           "layout": {
               "line-join": "round",
@@ -78,6 +90,12 @@ class App extends Component {
               "line-width": 5
           }
       })
+      startTime = performance.now();
+      setInterval(function() {
+        geojson.features[0].geometry.coordinates.push(coorArray[coorIndex]);
+        map.getSource('line-animation').setData(geojson);
+        coorIndex += 1;
+      }, 500);
     })
   }
   readChapter () {
