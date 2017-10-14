@@ -11,15 +11,6 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      viewport: {
-        latitude: 37.7577,
-        longitude: -122.4376,
-        zoom: 15.5,
-        bearing: 27,
-        pitch: 45,
-        width: 500,
-        height: 500
-      },
       map: {},
       activeChapterName: 'baker'
     };

@@ -12,12 +12,12 @@
 }
 #features {
     z-index: 9999;
-    width: 75%;
-    margin-left: 25%;
+    width: 100%;
+    margin-left: 0%;
     font-family: sans-serif;
     overflow-y: scroll;
     color: white;
-    padding:  25px 0px;
+    padding:  25px 10vw;
     background-color: rgba(255, 255, 255, 0);
 }
 .marker {
