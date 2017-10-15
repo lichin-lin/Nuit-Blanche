@@ -7,6 +7,7 @@ import Yeemon from '../static/image/Yeemon.jpg';
 
 export const chapterPoints = {
   'coffee': {
+      id: 'coffee',
       duration: 2000,
       bearing: 0,
       center: [121.531480, 25.015886],
@@ -14,6 +15,7 @@ export const chapterPoints = {
       zoom: 16
   },
   'open': {
+    id: 'open',
     duration: 2000,
     bearing: 50,
     center: [121.538842, 25.017336],
@@ -21,6 +23,7 @@ export const chapterPoints = {
     pitch: 90
   },
   'dance': {
+    id: 'dance',
       duration: 3000,
       center: [121.525570, 25.020024],
       bearing: 20,
@@ -28,6 +31,7 @@ export const chapterPoints = {
       pitch: 0
   },
   'bubble': {
+    id: 'bubble',
       bearing: 90,
       center: [121.530183, 25.018610],
       zoom: 16,
@@ -35,6 +39,7 @@ export const chapterPoints = {
       pitch: 40
   },
   'yeemon': {
+    id: 'yeemon',
       bearing: 45,
       center: [121.530668, 25.017844],
       zoom: 15.3,
@@ -42,6 +47,7 @@ export const chapterPoints = {
       speed: 0.5
   },
   'bike': {
+    id: 'bike',
     duration: 2000,
     bearing: 27,
     center: [121.537063, 25.017156],

@@ -31,6 +31,7 @@ class App extends Component {
     })
     _.map(chapterPoints, (marker) => {
       var el = document.createElement('div');
+      el.setAttribute('ref', marker.id);
       el.className = 'marker';
       new mapboxgl.Marker(el)
         .setLngLat(marker.center)
@@ -45,7 +46,6 @@ class App extends Component {
     for (var i = 0; i < chapterNames.length; i++) {
       var chapterName = chapterNames[i];
       if (this.isElementOnScreen(chapterName)) {
-        console.log('set it: ', chapterName);
         this.setActiveChapter(chapterName);
         break;
       }
@@ -55,10 +55,10 @@ class App extends Component {
     if (chapterName === this.state.activeChapterName)
       return;
     this.state.map.flyTo(chapterPoints[chapterName]);
-    // document.getElementById(chapterName).setAttribute('class', 'active');
     document.getElementById(chapterName).classList.add('active');
-    // document.getElementById(this.state.activeChapterName).setAttribute('class', '');
+    _.map(document.getElementsByClassName(`marker`), (marker) => marker.classList.remove('active'));
     document.getElementById(this.state.activeChapterName).classList.remove('active');
+    document.querySelectorAll(`[ref='${chapterName}']`)[0].classList.add('active');
 
     this.setState({
       activeChapterName: chapterName
