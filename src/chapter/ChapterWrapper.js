@@ -1,50 +1,21 @@
 import React, { Component } from 'react';
 import styled, { keyframes } from 'styled-components';
+import _ from 'lodash';
 
-function glitchAnimFront(width = '30vw') {
+function glitchAnima(step = 6, width = '30vw') {
+  let percentage = 100 / (step - 1)
+  let frameString = ''
+  for (let i = 0; i < step; i++) {
+    let position = 500 * Math.random()
+    let glithcWidth = _.sample([width, '0'])
+    let frame = `${i * percentage}% {clip: rect(${position}px, ${glithcWidth}, ${position + 5}px, 0);}`;
+    frameString += frame + ' '
+  }
   return keyframes`
-    0% {
-      clip: rect(70px, ${width}, 76px, 0);
-    }
-    20% {
-      clip: rect(29px, ${width}, 16px, 0);
-    }
-    40% {
-      clip: rect(300px, ${width}, 320px, 0);
-    }
-    60% {
-      clip: rect(42px, ${width}, 78px, 0);
-    }
-    80% {
-      clip: rect(410px, ${width}, 415px, 0);
-    }
-    100% {
-      clip: rect(53px, ${width}, 5px, 0);
-    }
+    ${frameString}
   `
 }
-function glitchAnimBack(width = '30vw') {
-  return keyframes`
-    0% {
-      clip: rect(170px, ${width}, 190px, 0);
-    }
-    20% {
-      clip: rect(59px, ${width}, 66px, 0);
-    }
-    40% {
-      clip: rect(120px, ${width}, 133px, 0);
-    }
-    60% {
-      clip: rect(342px, ${width}, 368px, 0);
-    }
-    80% {
-      clip: rect(110px, ${width}, 130px, 0);
-    }
-    100% {
-      clip: rect(23px, ${width}, 30px, 0);
-    }
-  `
-}
+
 const ChapterContainer = styled.section`
   margin: 10vh 0;
   width: 100%;
@@ -61,6 +32,44 @@ const ChapterContainer = styled.section`
 
   &.active {
     opacity: 1;
+    div.glitch {
+      &:before, &:after {
+        background-image: url(${props => props.src ? props.src : null});
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        width: 100%;
+        height: 100%;
+        content: '';
+        filter: sepia(1) hue-rotate(200deg);
+        clip: rect(44px, ${props => props.type === 'long' ? '60vw' : '30vw'}, 56px, 0);
+        animation: ${props => `
+          ${glitchAnima(6, props.type === 'long' ? '60vw' : '30vw')} 1.5s infinite linear alternate-reverse;
+        `}
+        @media screen and (max-width: 768px) {
+          clip: rect(44px, ${props => props.type === 'long' ? '90vw' : '50vw'}, 56px, 0);
+          animation: ${props => `
+            ${glitchAnima(6, props.type === 'long' ? '90vw' : '50vw')} 2.5s infinite linear alternate-reverse;
+          `}
+        }
+      }
+      &:before {
+        top: -10px;
+        left: -10px;
+        filter: hue-rotate(90deg);
+        animation: ${props => `
+          ${glitchAnima(8, props.type === 'long' ? '60vw' : '30vw')} 1.5s infinite linear alternate-reverse;
+        `}
+        @media screen and (max-width: 768px) {
+          animation: ${props => `
+            ${glitchAnima(8, props.type === 'long' ? '90vw' : '50vw')} 2.5s infinite linear alternate-reverse;
+          `}
+        }
+      }
+    }
   }
   @media screen and (max-width: 768px) {
     padding:  25px 0;
@@ -84,43 +93,6 @@ const ImageWrapper = styled.div`
     height: 70vw;
     margin-left: ${props => props.type === 'right' ? '40vw' : 0};
   }
-  &:before, &:after {
-    background-image: url(${props => props.src ? props.src : null});
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    position: absolute;
-    top: 5px;
-    left: 5px;
-    width: 100%;
-    height: 100%;
-    content: '';
-    filter: sepia(1) hue-rotate(200deg);
-    clip: rect(44px, ${props => props.type === 'long' ? '60vw' : '30vw'}, 56px, 0);
-    animation: ${props => `
-      ${glitchAnimFront(props.type === 'long' ? '60vw' : '30vw')} 1.5s infinite linear alternate-reverse;
-    `}
-    @media screen and (max-width: 768px) {
-      clip: rect(44px, ${props => props.type === 'long' ? '90vw' : '50vw'}, 56px, 0);
-      animation: ${props => `
-        ${glitchAnimFront(props.type === 'long' ? '90vw' : '50vw')} 2.5s infinite linear alternate-reverse;
-      `}
-    }
-  }
-  &:before {
-    top: -5px;
-    left: -5px;
-    filter: hue-rotate(90deg);
-    animation: ${props => `
-      ${glitchAnimBack(props.type === 'long' ? '60vw' : '30vw')} 1.5s infinite linear alternate-reverse;
-    `}
-    @media screen and (max-width: 768px) {
-      animation: ${props => `
-        ${glitchAnimBack(props.type === 'long' ? '90vw' : '50vw')} 2.5s infinite linear alternate-reverse;
-      `}
-    }
-  }
-
 `
 const Chapter = styled.div`
   z-index: 10;
@@ -157,7 +129,11 @@ const Chapter = styled.div`
 export default class chapterWrapper extends Component {
   render () {
     return (
-      <ChapterContainer id={this.props.id} className="active">
+      <ChapterContainer
+        type={this.props.chapter.type}
+        src={this.props.img.imgSrc}
+        id={this.props.id}
+        className="active">
         <ImageWrapper
           className="glitch"
           data-text="glitch"
