@@ -22,6 +22,7 @@ const DropWrapper = styled.div`
   height: 100px;
   background: ${props => props.color ? props.color : 'white'};
   animation: ${raining} 1.5s ease ${props => props.delay ? props.delay : '0s'} infinite;
+  -webkit-animation: ${raining} 1.5s ease ${props => props.delay ? props.delay : '0s'} infinite;
 `
 export default class Rain extends Component {
   render () {
