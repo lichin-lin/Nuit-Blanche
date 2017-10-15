@@ -45,13 +45,13 @@ class App extends Component {
     for (var i = 0; i < chapterNames.length; i++) {
       var chapterName = chapterNames[i];
       if (this.isElementOnScreen(chapterName)) {
+        console.log('set it: ', chapterName);
         this.setActiveChapter(chapterName);
         break;
       }
     }
   }
   setActiveChapter (chapterName) {
-    console.log(chapterName)
     if (chapterName === this.state.activeChapterName)
       return;
     this.state.map.flyTo(chapterPoints[chapterName]);

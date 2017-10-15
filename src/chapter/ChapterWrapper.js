@@ -18,9 +18,11 @@ const ChapterContainer = styled.section`
   &.active {
     opacity: 1;
   }
+  @media screen and (max-width: 768px) {
+    padding:  25px 0;
+  }
 `
 const ImageWrapper = styled.div`
-  // margin-top: 25vh;
   opacity: 0.65;
   width: ${props => props.type === 'long' ? '60vw' : '30vw'};
   height: 40vw;
@@ -33,6 +35,11 @@ const ImageWrapper = styled.div`
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  @media screen and (max-width: 768px) {
+    width: ${props => props.type === 'long' ? '90vw' : '50vw'};
+    height: 70vw;
+    margin-left: ${props => props.type === 'right' ? '40vw' : 0};
+  }
 `
 const Chapter = styled.div`
   position: absolute;
@@ -42,7 +49,7 @@ const Chapter = styled.div`
   height: fit-content;
   display: flex;
   flex-direction: column;
-  padding: 20px 20px;
+  padding: 20px;
   color: rgba(0, 0, 0, 0.75);
   background: rgba(255, 255, 255, 0.65);
   h3 {
@@ -53,11 +60,22 @@ const Chapter = styled.div`
     font-weight: bold;
     font-size: 16px;
   }
+  @media screen and (max-width: 768px) {
+    width: ${props => props.type === 'long' ? '70vw' : '50vw'};
+    padding: 10px 15px;
+    h3 {
+      margin: 0 0 5px;
+      font-size: 14px;
+    }
+    p {
+      font-size: 10px;
+    }
+  }
 `
 export default class chapterWrapper extends Component {
   render () {
     return (
-      <ChapterContainer id={this.props.id}>
+      <ChapterContainer id={this.props.id} className="active">
         <ImageWrapper
           type={this.props.chapter.type}
           src={this.props.img.imgSrc}>
