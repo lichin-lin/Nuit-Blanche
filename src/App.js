@@ -6,14 +6,13 @@ import _ from 'lodash';
 
 import './App.css';
 import ChapterWrapper from './chapter/ChapterWrapper';
-const ChapterWrapperType = ['left', 'long', 'right', 'left', 'right', 'long', 'left'];
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       map: {},
-      activeChapterName: 'baker'
+      activeChapterName: 'coffee'
     };
   }
   componentDidMount () {
@@ -22,7 +21,7 @@ class App extends Component {
     var map = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/mapbox/dark-v9',
-        center: [-0.15591514, 51.51830379],
+        center: [121.530562, 25.018086],
         zoom: 15.5,
         bearing: 27,
         pitch: 45
@@ -52,6 +51,7 @@ class App extends Component {
     }
   }
   setActiveChapter (chapterName) {
+    console.log(chapterName)
     if (chapterName === this.state.activeChapterName)
       return;
     this.state.map.flyTo(chapterPoints[chapterName]);
