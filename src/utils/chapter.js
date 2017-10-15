@@ -60,7 +60,7 @@ export const chapterPoints = {
 export const chapterContents = {
   'coffee': {
     type: 'left',
-    title: '[1/6] Peter 智堯',
+    title: '[1/6] Peter 致堯',
     content: '厭世 | 攝影師 | 最帥那種'
   },
   'open': {
