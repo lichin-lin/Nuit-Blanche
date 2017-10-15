@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 import mapboxgl from 'mapbox-gl';
-import { chapterPoints, chapterContents, chapterImage } from './utils/chapter.js';
+import {
+  chapterPoints,
+  chapterContents,
+  chapterImage
+} from './utils/chapter.js';
 import { tripRoute } from './utils/tripRoute';
 import _ from 'lodash';
 
 import './App.css';
 import ChapterWrapper from './chapter/ChapterWrapper';
+import Header from './chapter/Header';
+import Footer from './chapter/Footer';
 
 class App extends Component {
   constructor(props) {
@@ -73,6 +79,7 @@ class App extends Component {
     return (
       <div id='container'>
         <div id='map' />
+        <Header />
         <div id='features'>
           {
             _.map(chapterContents, (chapter, id) =>
@@ -84,6 +91,7 @@ class App extends Component {
             )
           }
         </div>
+        <Footer />
       </div>
     );
   }
