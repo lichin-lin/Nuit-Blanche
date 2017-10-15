@@ -1,46 +1,8 @@
 import React, { Component } from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
+import GlitchText from './Glitch';
 import Icons from './Icons';
 import Rain from './Rain';
-
-const glitch = keyframes`
-    0% {
-      transform: translate(0);;
-    }
-    5% {
-        transform: translate(-3px, 3px);
-    }
-    10% {
-        transform: translate(-3px, -3px);
-    }
-    15% {
-      transform: translate(3px, 3px);
-    }
-    20% {
-      transform: translate(3px, -3px);
-    }
-    25% {
-      transform: translate(0);
-    }
-    75% {
-      transform: translate(0);
-    }
-    80% {
-      transform: translate(-3px, 3px);
-    }
-    85% {
-      transform: translate(-3px, -3px);
-    }
-    90% {
-      transform: translate(3px, 3px);
-    }
-    95% {
-      transform: translate(3px, -3px);
-    }
-    to {
-      transform: translate(0);
-    }
-`
 
 const HeaderWrapper = styled.div`
   width: 100%;
@@ -66,33 +28,6 @@ const Content = styled.div`
 `
 const Title = styled.div`
   margin-bottom: 100px;
-  h2 {
-    margin: 5px 0;
-    font-size: 5rem;
-    color: white;
-    position: relative;
-
-    &:before,
-    &:after {
-      color: #f0f;
-      z-index: -1;
-      content: attr(data-text);
-      position: absolute;
-      top: 0px;
-      left: 0px;
-      width: 100%;
-      height: 100%;
-      animation: ${glitch} 2.5s cubic-bezier(.25, .46, .45, .94) both infinite
-    }
-    &:after {
-      color: #0ff !important;
-      z-index: -1 !important;
-      animation: ${glitch} 2.5s cubic-bezier(.25, .46, .45, .94) reverse both infinite
-    }
-    @media screen and (max-width: 768px) {
-      font-size: 2.75rem;
-    }
-  }
   h3, h4 {
     padding-left: 10px;
     margin: 2.5px 0;
@@ -145,11 +80,13 @@ export default class Header extends Component {
           <Content>
             <Title>
               <h3>2017</h3>
-              <h2 data-text="台北白晝之夜">台北白晝之夜</h2>
+              <GlitchText text={'台北白晝之夜'}/>
               <h4>NUIT BLANCHE TAIPEI</h4>
             </Title>
             <Describe>
               <p>Trip route visualization made with Mapbox GL</p>
+              <p>*best viewed on a desktop browser(Chrome).</p>
+              <p>*用 Chrome 瀏覽器開啟將會呈現較佳的效果</p>
               <Icons />
             </Describe>
           </Content>
