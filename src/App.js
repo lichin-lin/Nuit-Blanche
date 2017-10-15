@@ -18,7 +18,7 @@ class App extends Component {
     super(props);
     this.state = {
       map: {},
-      activeChapterName: 'coffee'
+      activeChapterName: ''
     };
   }
   componentDidMount () {
@@ -48,6 +48,7 @@ class App extends Component {
     })
   }
   readChapter () {
+    console.log('scroll');
     var chapterNames = Object.keys(chapterPoints);
     for (var i = 0; i < chapterNames.length; i++) {
       var chapterName = chapterNames[i];
@@ -63,7 +64,9 @@ class App extends Component {
     this.state.map.flyTo(chapterPoints[chapterName]);
     document.getElementById(chapterName).classList.add('active');
     _.map(document.getElementsByClassName(`marker`), (marker) => marker.classList.remove('active'));
-    document.getElementById(this.state.activeChapterName).classList.remove('active');
+    if(_.size(this.state.activeChapterName) > 0) {
+      document.getElementById(this.state.activeChapterName).classList.remove('active');
+    }
     document.querySelectorAll(`[ref='${chapterName}']`)[0].classList.add('active');
 
     this.setState({
