@@ -1,9 +1,10 @@
-import bike from '../static/image/bike.jpg';
-import bubble from '../static/image/bubble.jpg';
-import dance from '../static/image/dance.jpg';
-import peter from '../static/image/peter.jpg';
-import open from '../static/image/open.jpg';
-import Yeemon from '../static/image/Yeemon.jpg';
+const bike = 'https://raw.githubusercontent.com/lichin-lin/trip/master/src/static/image/bike.jpg';
+const bubble = 'https://raw.githubusercontent.com/lichin-lin/trip/master/src/static/image/bubble.jpg';
+const dance = 'https://raw.githubusercontent.com/lichin-lin/trip/master/src/static/image/dance.jpg';
+const peter = 'https://raw.githubusercontent.com/lichin-lin/trip/master/src/static/image/peter.jpg';
+const open = 'https://raw.githubusercontent.com/lichin-lin/trip/master/src/static/image/open.jpg';
+const Yeemon = 'https://raw.githubusercontent.com/lichin-lin/trip/master/src/static/image/Yeemon.jpg';
+
 
 export const chapterPoints = {
   'coffee': {
