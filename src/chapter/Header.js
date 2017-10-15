@@ -120,7 +120,7 @@ const Describe = styled.div`
     padding-left: 10px;
     font-size: 1rem;
     @media screen and (max-width: 768px) {
-      font-size: 0.5rem;
+      font-size: 0.75rem;
     }
   }
 `
@@ -131,7 +131,7 @@ const ScrollWrapper = styled.div`
   justify-content: flex-start;
   p {
     font-weight: lighter;
-    font-size: 10px;
+    font-size: 12px;
     color: rgba(255, 255, 255, 0.5);
     margin: 1px 0;
   }

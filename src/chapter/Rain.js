@@ -3,9 +3,11 @@ import styled, { keyframes } from 'styled-components';
 
 const raining = keyframes`
   0% {
+    -webkit-transform: translate(0, -100%);
     transform: translate(0, -100%);
   }
   to {
+    -webkit-transform: translate(0, 100%);
     transform: translate(0, 100%);
   }
 `
@@ -21,8 +23,10 @@ const DropWrapper = styled.div`
   width: 2px;
   height: 100px;
   background: ${props => props.color ? props.color : 'white'};
-  animation: ${raining} 1.5s ease ${props => props.delay ? props.delay : '0s'} infinite;
-  -webkit-animation: ${raining} 1.5s ease ${props => props.delay ? props.delay : '0s'} infinite;
+  animation: ${raining} 1.5s ease infinite;
+  -webkit-animation: ${raining} 1.5s ease infinite;
+  animation-delay: ${props => props.delay ? props.delay : '0s'};
+  -webkit-animation-delay: ${props => props.delay ? props.delay : '0s'};
 `
 export default class Rain extends Component {
   render () {
