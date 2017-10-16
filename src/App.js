@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import mapboxgl from 'mapbox-gl';
+import MapboxDirections from '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions.js';
+
 import {
   chapterPoints,
   chapterContents,
   chapterImage
 } from './utils/chapter.js';
 import { tripRoute } from './utils/tripRoute';
+import { directionStyle } from './utils/directionStyle';
 import _ from 'lodash';
 
 import './App.css';
@@ -18,13 +21,14 @@ class App extends Component {
     super(props);
     this.state = {
       map: {},
+      directions: {},
       activeChapterName: ''
     };
   }
   componentDidMount () {
     window.addEventListener('scroll', this.readChapter.bind(this));
     mapboxgl.accessToken = 'pk.eyJ1IjoibGljaGluIiwiYSI6ImNqOHF6NHVoMzB6aTkyeG50am1xcjh3aW4ifQ.CgaIVuDlJLRDbti7yiL4yw';
-    var map = new mapboxgl.Map({
+    let map = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/mapbox/dark-v9',
         center: [121.530562, 25.018086],
@@ -32,26 +36,38 @@ class App extends Component {
         bearing: 27,
         pitch: 45
     })
+    let directions = new MapboxDirections({
+      accessToken: mapboxgl.accessToken,
+      unit: 'metric',
+      profile: 'walking',
+      interactive: true,
+      controls: {
+        inputs: false,
+        instructions: true
+      },
+      style: directionStyle
+    });
+    map.addControl(directions, 'top-left');
+
     this.setState({
-      map: map
+      map: map,
+      directions: directions
     })
+    console.log(directions);
+
     _.map(chapterPoints, (marker) => {
-      var el = document.createElement('div');
+      let el = document.createElement('div');
       el.setAttribute('ref', marker.id);
       el.className = 'marker';
       new mapboxgl.Marker(el)
         .setLngLat(marker.center)
         .addTo(map);
     })
-    map.on('load', function () {
-      map.addLayer(tripRoute)
-    })
   }
   readChapter () {
-    console.log('scroll');
-    var chapterNames = Object.keys(chapterPoints);
-    for (var i = 0; i < chapterNames.length; i++) {
-      var chapterName = chapterNames[i];
+    let chapterNames = Object.keys(chapterPoints);
+    for (let i = 0; i < chapterNames.length; i++) {
+      let chapterName = chapterNames[i];
       if (this.isElementOnScreen(chapterName)) {
         this.setActiveChapter(chapterName);
         break;
@@ -68,14 +84,20 @@ class App extends Component {
       document.getElementById(this.state.activeChapterName).classList.remove('active');
     }
     document.querySelectorAll(`[ref='${chapterName}']`)[0].classList.add('active');
-
+    let prevChapterName = this.state.activeChapterName
     this.setState({
       activeChapterName: chapterName
     });
+    if (prevChapterName === '') {
+      this.state.directions.removeRoutes();
+      return;
+    }
+    this.state.directions.setOrigin(chapterPoints[prevChapterName].center);
+    this.state.directions.setDestination(chapterPoints[chapterName].center);
   }
   isElementOnScreen (id) {
-    var element = document.getElementById(id);
-    var bounds = element.getBoundingClientRect() || null;
+    let element = document.getElementById(id);
+    let bounds = element.getBoundingClientRect() || null;
     return bounds.top < window.innerHeight && bounds.bottom > 0;
   }
   render() {
