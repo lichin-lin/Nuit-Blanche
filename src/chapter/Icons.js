@@ -35,10 +35,10 @@ export default class Icons extends Component {
           <Icon href="https://github.com/lichin-lin" target="_blank">
             <FaGithub />
           </Icon>
-          <Icon  href="" target="_blank" size={'28px'}>
+          <Icon href="https://twitter.com/home?status=2017%20Taipei%20Nuit-Blanche%20Trip!%0A%E2%9C%8C%EF%B8%8F%20https%3A//lichin.me/Nuit-Blanche/%20%E2%9C%8C%EF%B8%8F%20%0Apic.twitter.com/COxgEru5tP" target="_blank" size={'28px'}>
             <FaTwitter />
           </Icon>
-          <Icon  href="" target="_blank" size={'26px'}>
+          <Icon href="https://www.facebook.com/sharer/sharer.php?u=https%3A//lichin.me/Nuit-Blanche/" target="_blank" size={'26px'}>
             <FaFacebook />
           </Icon>
         </IconWrapper>
