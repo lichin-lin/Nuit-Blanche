@@ -61,7 +61,7 @@ export const chapterContents = {
   'coffee': {
     type: 'left',
     title: '[1/6] Peter 致堯',
-    content: '厭世 | 攝影師 | 最帥那種'
+    content: '與攝影師喝咖啡, have a cup of coffee with photographer.'
   },
   'open': {
     type: 'right',
