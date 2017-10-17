@@ -7,7 +7,6 @@ import {
   chapterContents,
   chapterImage
 } from './utils/chapter.js';
-import { tripRoute } from './utils/tripRoute';
 import { directionStyle } from './utils/directionStyle';
 import _ from 'lodash';
 
@@ -45,7 +44,7 @@ class App extends Component {
         inputs: false,
         instructions: true
       },
-      style: directionStyle
+      style: 'https://mapbox.com/studio/styles/add-style/mapbox/cj5l80zrp29942rmtg0zctjto/'
     });
     map.addControl(directions, 'top-left');
 
@@ -77,6 +76,13 @@ class App extends Component {
   setActiveChapter (chapterName) {
     if (chapterName === this.state.activeChapterName)
       return;
+    let prevChapterName = this.state.activeChapterName
+    if (prevChapterName === '') {
+      this.state.directions.removeRoutes();
+    } else {
+      this.state.directions.setOrigin(chapterPoints[prevChapterName].center);
+      this.state.directions.setDestination(chapterPoints[chapterName].center);
+    }
     this.state.map.flyTo(chapterPoints[chapterName]);
     document.getElementById(chapterName).classList.add('active');
     _.map(document.getElementsByClassName(`marker`), (marker) => marker.classList.remove('active'));
@@ -84,16 +90,9 @@ class App extends Component {
       document.getElementById(this.state.activeChapterName).classList.remove('active');
     }
     document.querySelectorAll(`[ref='${chapterName}']`)[0].classList.add('active');
-    let prevChapterName = this.state.activeChapterName
     this.setState({
       activeChapterName: chapterName
     });
-    if (prevChapterName === '') {
-      this.state.directions.removeRoutes();
-      return;
-    }
-    this.state.directions.setOrigin(chapterPoints[prevChapterName].center);
-    this.state.directions.setDestination(chapterPoints[chapterName].center);
   }
   isElementOnScreen (id) {
     let element = document.getElementById(id);
