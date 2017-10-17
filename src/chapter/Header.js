@@ -84,9 +84,9 @@ export default class Header extends Component {
               <h4>NUIT BLANCHE TAIPEI</h4>
             </Title>
             <Describe>
-              <p>Trip route visualization made with Mapbox GL</p>
+              <p>Trip route visualization made with Mapbox GL, switch view by the button on top right corner</p>
               <p>*best viewed on a desktop browser(Chrome).</p>
-              <p>*用 Chrome 瀏覽器開啟將會呈現較佳的效果</p>
+              <p>*用 Chrome 瀏覽器開啟將會呈現較佳的效果，右上方的按鈕可以切換模式。</p>
               <Icons />
             </Describe>
           </Content>
