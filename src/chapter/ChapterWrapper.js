@@ -55,7 +55,6 @@ const ChapterContainer = styled.section`
             ${glitchAnima(6, props.type === 'long' ? '90vw' : '50vw')} 2.5s infinite linear alternate-reverse;
           `}
         }
-        display: none;
       }
       &:before {
         top: -10px;
