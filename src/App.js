@@ -1,24 +1,25 @@
 import React, { Component } from 'react';
 import mapboxgl from 'mapbox-gl';
 import MapboxDirections from '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions.js';
+import _ from 'lodash';
 
 import {
   chapterPoints,
   chapterContents,
   chapterImage
 } from './utils/chapter.js';
+
 import {
   directionRoute,
   originPoint,
   destinationPoint
 } from './utils/customDirectionStyle';
 
-import _ from 'lodash';
-
 import './App.css';
 import ChapterWrapper from './chapter/ChapterWrapper';
 import Header from './chapter/Header';
 import Footer from './chapter/Footer';
+import ViewToggle from './chapter/ViewToggle';
 
 class App extends Component {
   constructor(props) {
@@ -26,7 +27,8 @@ class App extends Component {
     this.state = {
       map: {},
       directions: {},
-      activeChapterName: ''
+      activeChapterName: '',
+      isViewingMap: false
     };
   }
   componentDidMount () {
@@ -112,11 +114,33 @@ class App extends Component {
     let bounds = element.getBoundingClientRect() || null;
     return bounds.top < window.innerHeight && bounds.bottom > 0;
   }
+  toggleMap () {
+    let features = document.getElementById("features");
+    let map = document.getElementById("map");
+    let instructions = document.getElementsByClassName("directions-control-instructions");
+    if (this.state.isViewingMap === false) {
+      console.log(features)
+      features.style.zIndex = -2;
+      map.style.zIndex = 10000;
+      instructions[0].style.visibility = 'visible';
+      window.removeEventListener('scroll', this.readChapter);
+    } else {
+      features.style.zIndex = 9999;
+      map.style.zIndex = -1;
+      instructions[0].style.visibility = 'hidden';
+      window.addEventListener('scroll', this.readChapter.bind(this));
+    }
+    this.setState({isViewingMap: !this.state.isViewingMap})
+  }
   render() {
     return (
       <div id='container'>
         <div id='map' />
         <Header />
+        <ViewToggle
+          isViewingMap={this.state.isViewingMap}
+          toggleMap={this.toggleMap.bind(this)}
+        />
         <div id='features'>
           {
             _.map(chapterContents, (chapter, id) =>
