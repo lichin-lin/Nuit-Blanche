@@ -53,7 +53,7 @@ class App extends Component {
       }
     });
     map.addControl(directions, 'top-left');
-
+    document.getElementsByClassName("directions-control-instructions")[0].style.visibility = 'hidden';
     this.setState({
       map: map,
       directions: directions
