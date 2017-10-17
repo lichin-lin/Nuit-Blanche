@@ -38,42 +38,21 @@ export const directionStyle = [
       ["in", "route", "selected"]
     ]
   }, {
-    "id": "directions-route-line",
-    "type": "line",
-    "source": "directions",
-    "layout": {
-      "line-cap": "butt",
-      "line-join": "round"
+    'id': 'directions-route-line',
+    'type': 'line',
+    'source': 'directions',
+    'layout': {
+      'line-cap': 'round',
+      'line-join': 'round'
     },
-    "paint": {
-      "line-color": {
-        "property": "congestion",
-        "type": "categorical",
-        "default": "tomato",
-        "stops": [
-          [
-            "unknown", "tomato"
-          ],
-          [
-            "low", "tomato"
-          ],
-          [
-            "moderate", "#f09a46"
-          ],
-          [
-            "heavy", "#e34341"
-          ],
-          ["severe", "#8b2342"]
-        ]
-      },
-      "line-width": 7
+    'paint': {
+      'line-color': '#B7824C',
+      'line-width': 4
     },
-    "filter": [
-      "all",
-      [
-        "in", "$type", "LineString"
-      ],
-      ["in", "route", "selected"]
+    'filter': [
+      'all',
+      ['in', '$type', 'LineString'],
+      ['in', 'route', 'selected']
     ]
   }, {
     "id": "directions-hover-point-casing",
@@ -209,4 +188,4 @@ export const directionStyle = [
     ]
   }
 ];
-// 
+//

@@ -7,7 +7,12 @@ import {
   chapterContents,
   chapterImage
 } from './utils/chapter.js';
-import { directionStyle } from './utils/directionStyle';
+import {
+  directionRoute,
+  originPoint,
+  destinationPoint
+} from './utils/customDirectionStyle';
+
 import _ from 'lodash';
 
 import './App.css';
@@ -43,8 +48,7 @@ class App extends Component {
       controls: {
         inputs: false,
         instructions: true
-      },
-      style: 'https://mapbox.com/studio/styles/add-style/mapbox/cj5l80zrp29942rmtg0zctjto/'
+      }
     });
     map.addControl(directions, 'top-left');
 
@@ -74,15 +78,13 @@ class App extends Component {
     }
   }
   setActiveChapter (chapterName) {
-    if (chapterName === this.state.activeChapterName)
+    if (chapterName === this.state.activeChapterName) {
+      if (chapterName === 'coffee' && this.state.activeChapterName === 'coffee') {
+        this.state.directions.removeRoutes();
+      }
       return;
-    let prevChapterName = this.state.activeChapterName
-    if (prevChapterName === '') {
-      this.state.directions.removeRoutes();
-    } else {
-      this.state.directions.setOrigin(chapterPoints[prevChapterName].center);
-      this.state.directions.setDestination(chapterPoints[chapterName].center);
     }
+    this.setRoute(this.state.activeChapterName, chapterName)
     this.state.map.flyTo(chapterPoints[chapterName]);
     document.getElementById(chapterName).classList.add('active');
     _.map(document.getElementsByClassName(`marker`), (marker) => marker.classList.remove('active'));
@@ -93,6 +95,17 @@ class App extends Component {
     this.setState({
       activeChapterName: chapterName
     });
+  }
+  setRoute (prev, next) {
+    if (prev === '' ) {
+      this.state.directions.removeRoutes();
+    } else {
+      this.state.map.addLayer(originPoint)
+      this.state.map.addLayer(destinationPoint)
+      this.state.map.addLayer(directionRoute)
+      this.state.directions.setOrigin(chapterPoints[prev].center);
+      this.state.directions.setDestination(chapterPoints[next].center);
+    }
   }
   isElementOnScreen (id) {
     let element = document.getElementById(id);

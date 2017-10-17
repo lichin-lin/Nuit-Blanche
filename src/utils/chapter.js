@@ -28,7 +28,7 @@ export const chapterPoints = {
       duration: 3000,
       center: [121.525570, 25.020024],
       bearing: 20,
-      zoom: 16,
+      zoom: 15,
       pitch: 0
   },
   'bubble': {
@@ -43,17 +43,17 @@ export const chapterPoints = {
     id: 'yeemon',
       bearing: 45,
       center: [121.530668, 25.017844],
-      zoom: 15.3,
-      pitch: 20,
+      zoom: 16.5,
+      pitch: 60,
       speed: 0.5
   },
   'bike': {
     id: 'bike',
     duration: 2000,
-    bearing: 27,
+    bearing: 90,
     center: [121.537063, 25.017156],
-    zoom: 15.5,
-    pitch: 20
+    zoom: 16,
+    pitch: 60
   },
 };
 
