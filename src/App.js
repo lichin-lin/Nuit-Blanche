@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import mapboxgl from 'mapbox-gl';
 import MapboxDirections from '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions.js';
+import styled from 'styled-components';
 import _ from 'lodash';
 
 import {
@@ -21,6 +22,12 @@ import Header from './chapter/Header';
 import Footer from './chapter/Footer';
 import ViewToggle from './chapter/ViewToggle';
 
+const ChapterList = styled.div`
+  z-index: ${props => props.isActive ? 9999 : -2};
+`
+const Map = styled.div`
+  z-index: ${props => props.isActive ? 10000 : -1};
+`
 class App extends Component {
   constructor(props) {
     super(props);
@@ -115,18 +122,11 @@ class App extends Component {
     return bounds.top < window.innerHeight && bounds.bottom > 0;
   }
   toggleMap () {
-    let features = document.getElementById("features");
-    let map = document.getElementById("map");
     let instructions = document.getElementsByClassName("directions-control-instructions");
     if (this.state.isViewingMap === false) {
-      console.log(features)
-      features.style.zIndex = -2;
-      map.style.zIndex = 10000;
       instructions[0].style.visibility = 'visible';
       window.removeEventListener('scroll', this.readChapter);
     } else {
-      features.style.zIndex = 9999;
-      map.style.zIndex = -1;
       instructions[0].style.visibility = 'hidden';
       window.addEventListener('scroll', this.readChapter.bind(this));
     }
@@ -135,13 +135,17 @@ class App extends Component {
   render() {
     return (
       <div id='container'>
-        <div id='map' />
+        <Map
+          isActive={this.state.isViewingMap}
+          id='map' />
         <Header />
         <ViewToggle
           isViewingMap={this.state.isViewingMap}
           toggleMap={this.toggleMap.bind(this)}
         />
-        <div id='features'>
+        <ChapterList
+          isActive={!this.state.isViewingMap}
+          id='features'>
           {
             _.map(chapterContents, (chapter, id) =>
               <ChapterWrapper
@@ -151,7 +155,7 @@ class App extends Component {
                 chapter={chapter} />
             )
           }
-        </div>
+        </ChapterList>
         <Footer />
       </div>
     );

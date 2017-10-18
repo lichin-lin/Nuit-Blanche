@@ -15,7 +15,7 @@
     height: 100vh;
 }
 #features {
-    z-index: 9999;
+    /*z-index: 9999;*/
     width: 100%;
     margin-left: 0%;
     font-family: sans-serif;

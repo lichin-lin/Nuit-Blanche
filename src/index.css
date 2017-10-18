@@ -8,7 +8,7 @@ body {
   box-sizing: border-box;
 }
 #map {
-  z-index: -1;
+  /*z-index: -1;*/
   position:absolute;
   top:0;
   bottom:0;
