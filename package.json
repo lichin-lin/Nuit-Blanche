@@ -34,7 +34,6 @@
     "react-sidebar": "^2.3.2",
     "react-slick": "^0.15.4",
     "react-text-truncate": "^0.11.2",
-    "react-trello": "git+https://github.com/Tocknicsu/react-trello.git",
     "redux": "^3.6.0",
     "redux-actions": "^1.2.2",
     "redux-burger-menu": "^0.2.1",
