@@ -1,8 +1,32 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+import React from 'react'
+import { render } from 'react-dom'
+import RootRouter from 'js/routes'
+import { AppContainer } from 'react-hot-loader'
+import registerServiceWorker from './registerServiceWorker'
 
-ReactDOM.render(<App />, document.getElementById('root'));
-registerServiceWorker();
+if (typeof (document) !== 'undefined' && window) {
+  window.onload = () => {
+    return render(
+      <AppContainer>
+        <RootRouter/>
+      </AppContainer>
+      ,
+      document.getElementById('app')
+    )
+  }
+}
+
+if (module.hot) {
+  module.hot.accept('./js/routes', () => {
+    const NextRootRouter = require('./js/routes').default
+    render(
+      <AppContainer>
+        <NextRootRouter/>
+      </AppContainer>
+      ,
+      document.getElementById('app')
+    )
+  })
+}
+
+registerServiceWorker()
